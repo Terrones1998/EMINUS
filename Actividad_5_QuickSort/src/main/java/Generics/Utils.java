@@ -4,40 +4,37 @@ package Generics;
 
 public class Utils {
 
-   
-
-   public static<N extends Number>N[] ordena(N[] vec,int izq,int der){
-      
-       N pivote=vec[izq];
-       int i=izq;
-       int j=der;
-       N aux;
-       
-     
-       while(i<j){
-           while(vec[i] <= pivote && i<j)
-               i++;
-           while(vec[j] > pivote)
-               j--;
-           if(i<j){
-               aux=vec[i];
-               vec[i]=vec[j];
-               vec[j]=aux;
-           }
-       }
-       vec[izq]=vec[j];
-       vec[j]=pivote;
-       if(izq<j-1)
-           ordena(vec,izq,j-1);
-       if(j+1<der)
-           ordena(vec,j+1,der);
-       
-       
-            return vec;
+    public static <T extends Number> T[] ordena(T[] arreglo){        
+        quicksort(arreglo,0,arreglo.length-1);
+        return arreglo;
     }
+    private static <T extends Number> void quicksort(T[] arreglo, int izq, int der) {
+        if (izq < der) {
+            int i = izq, j = der;
+            T central = arreglo[(i + j) / 2];
 
-    
+            do {
+                while (arreglo[i].doubleValue() < central.doubleValue()) i++;
+                while (central.doubleValue() < arreglo[j].doubleValue()) j--;
+
+                if ( i <= j) {
+                    T tmp = arreglo[i];
+                    arreglo[i] = arreglo[j];
+                    arreglo[j] = tmp;
+                    i++;
+                    j--;
+                }
+
+            } while (i <= j);
+
+            quicksort(arreglo, izq, j);
+            quicksort(arreglo, i, der);
+        }
+    }
+  
 }
+
+
 
 
 
